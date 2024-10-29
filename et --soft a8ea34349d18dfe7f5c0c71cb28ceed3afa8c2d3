@@ -1,0 +1,44 @@
+[33mcommit 09bd059bc4aaf5ce82b5f65e31bf4b225819a416[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mMHL-20-user-management[m[33m)[m
+Author: ibtissam el hani <ibtissamelhani36@gmail.com>
+Date:   Tue Oct 29 22:19:47 2024 +0100
+
+    @ExceptionHandler(InvalidUserException.class)
+
+[33mcommit a8ea34349d18dfe7f5c0c71cb28ceed3afa8c2d3[m[33m ([m[1;31morigin/MHL-20-user-management[m[33m, [m[1;31morigin/Develop[m[33m, [m[1;32mDevelop[m[33m)[m
+Merge: 275189f 5736ecb
+Author: IBTISSAM EL HANI <101392078+ibtissamelhani@users.noreply.github.com>
+Date:   Tue Oct 29 10:01:55 2024 +0100
+
+    Merge pull request #1 from ibtissamelhani/MHL-19-architecture-setup
+    
+    MHL-19-architecture-setup
+
+[33mcommit 5736ecbb317f9a1873980359a6d89ec24a0794b7[m[33m ([m[1;31morigin/MHL-19-architecture-setup[m[33m, [m[1;32mMHL-19-architecture-setup[m[33m)[m
+Author: ibtissam el hani <ibtissamelhani36@gmail.com>
+Date:   Tue Oct 29 00:18:22 2024 +0100
+
+    services added
+
+[33mcommit f0eb5eb0fb80db4fc1a3762a95ff9e518d3e445f[m
+Author: ibtissam el hani <ibtissamelhani36@gmail.com>
+Date:   Tue Oct 29 00:10:05 2024 +0100
+
+    repositories added
+
+[33mcommit 5ce892ce1f042e0dee9201cd7dfc5bedb8e5197f[m
+Author: ibtissam el hani <ibtissamelhani36@gmail.com>
+Date:   Tue Oct 29 00:01:11 2024 +0100
+
+    entities added
+
+[33mcommit 3e0aa676d7b1970e2c9b9ab7e9382adc2b756d42[m
+Author: ibtissam el hani <ibtissamelhani36@gmail.com>
+Date:   Mon Oct 28 23:50:43 2024 +0100
+
+    enums added
+
+[33mcommit 275189faa401cb944a87336b17ebf273bbe555c7[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/MHL-19-feature/architecture-setup[m[33m, [m[1;32mmain[m[33m, [m[1;32mMHL-19-feature/architecture-setup[m[33m)[m
+Author: ibtissam el hani <ibtissamelhani36@gmail.com>
+Date:   Mon Oct 28 22:24:03 2024 +0100
+
+    first commit
