@@ -10,7 +10,7 @@ import org.youcode.maska_hunters_league.web.exception.user.UserNameAlreadyExistE
 
 @Service
 public class AuthServiceImpl implements AuthService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public AuthServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
