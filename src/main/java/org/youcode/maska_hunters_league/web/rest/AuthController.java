@@ -41,9 +41,9 @@ public class AuthController {
     public ResponseEntity<String> login(@RequestBody @Valid SignInVM signInVM) {
         User user = signInVMMapper.toUser(signInVM);
 
-        User authenticatedUser = authService.login(user);
+        Boolean authenticated = authService.login(user);
 
-        if (authenticatedUser != null) {
+        if (authenticated) {
             return ResponseEntity.ok("Login successful");
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("authentication failed");

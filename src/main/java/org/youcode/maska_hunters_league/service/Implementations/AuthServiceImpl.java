@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         @Override
-    public User login(User user) {
+    public Boolean login(User user) {
             if (user == null) {
                 throw new InvalidUserExeption("user is null");
             }
@@ -45,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
                     .orElseThrow(() -> new InvalidCredentialsException("username or password is incorrect"));
 
             if (BCrypt.checkpw(user.getPassword(), existingUser.getPassword())) {
-                return existingUser;
+                return true;
             } else {
                 throw new InvalidCredentialsException("username or password is incorrect");
             }
