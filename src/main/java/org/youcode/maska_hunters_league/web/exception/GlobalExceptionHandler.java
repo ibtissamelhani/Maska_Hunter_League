@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.youcode.maska_hunters_league.web.exception.user.EmailAlreadyExistException;
+import org.youcode.maska_hunters_league.web.exception.user.InvalidCredentialsException;
 import org.youcode.maska_hunters_league.web.exception.user.InvalidUserExeption;
 import org.youcode.maska_hunters_league.web.exception.user.UserNameAlreadyExistException;
 
@@ -37,6 +38,11 @@ public class GlobalExceptionHandler {
                 errors.put(error.getField(), error.getDefaultMessage()));
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<String> handleInvalidCredentialsException(InvalidCredentialsException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
 }

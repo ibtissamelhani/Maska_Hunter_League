@@ -4,4 +4,5 @@ import org.youcode.maska_hunters_league.domain.entities.User;
 
 public interface AuthService {
     User registerUser(User user);
+    User login(User user);
 }
