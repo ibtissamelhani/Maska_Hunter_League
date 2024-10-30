@@ -10,6 +10,7 @@ import org.youcode.maska_hunters_league.service.UserService;
 import org.youcode.maska_hunters_league.web.exception.user.InvalidCredentialsException;
 import org.youcode.maska_hunters_league.web.exception.user.UserDoesntExistException;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -32,10 +33,15 @@ public class UserServiceImpl implements UserService {
         if (id == null) {
             throw new InvalidCredentialsException("Invalid user id");
         }
-        User user = userRepository.findById(id)
+        userRepository.findById(id)
                 .orElseThrow(UserDoesntExistException::new);
 
         userRepository.deleteById(id);
         return true;
+    }
+
+    @Override
+    public List<User> findByUsernameOrEmail(String searchKey){
+        return userRepository.findByUsernameContainingOrEmailContaining(searchKey, searchKey);
     }
 }

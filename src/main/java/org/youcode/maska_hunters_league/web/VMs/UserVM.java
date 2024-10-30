@@ -1,11 +1,12 @@
 package org.youcode.maska_hunters_league.web.VMs;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
 import lombok.*;
+import org.youcode.maska_hunters_league.domain.entities.Participation;
 import org.youcode.maska_hunters_league.domain.enums.Role;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -19,7 +20,6 @@ public class UserVM {
 
     private String username;
 
-    @Enumerated(EnumType.STRING)
     private Role role;
 
     private String firstName;
@@ -35,4 +35,5 @@ public class UserVM {
     private LocalDateTime joinDate;
 
     private LocalDateTime licenseExpirationDate;
+
 }

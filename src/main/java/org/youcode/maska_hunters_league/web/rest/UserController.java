@@ -3,6 +3,7 @@ package org.youcode.maska_hunters_league.web.rest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.User;
@@ -32,7 +33,18 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteMember(@PathVariable UUID id) {
-        userService.deleteUser(id);
-        return ResponseEntity.ok("deleted successfully");
+        boolean isDeleted = userService.deleteUser(id);
+        if (isDeleted) {
+            return ResponseEntity.ok("deleted successfully");
+        }else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("failed to delete user");
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<UserVM>> searchMembers(@RequestParam String searchKey) {
+        List<User> users = userService.findByUsernameOrEmail(searchKey);
+        List<UserVM> userVMS = users.stream().map(userVMMapper::toUserVM).toList();
+        return ResponseEntity.ok(userVMS);
     }
 }
