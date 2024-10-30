@@ -8,7 +8,7 @@ import org.youcode.maska_hunters_league.domain.entities.User;
 import org.youcode.maska_hunters_league.repository.UserRepository;
 import org.youcode.maska_hunters_league.service.UserService;
 import org.youcode.maska_hunters_league.web.exception.user.InvalidCredentialsException;
-import org.youcode.maska_hunters_league.web.exception.user.UserDoesntExistException;
+import org.youcode.maska_hunters_league.web.exception.user.UserNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
             throw new InvalidCredentialsException("Invalid user id");
         }
         userRepository.findById(id)
-                .orElseThrow(UserDoesntExistException::new);
+                .orElseThrow(UserNotFoundException::new);
 
         userRepository.deleteById(id);
         return true;
@@ -43,5 +43,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findByUsernameOrEmail(String searchKey){
         return userRepository.findByUsernameContainingOrEmailContaining(searchKey, searchKey);
+    }
+
+    @Override
+    public User updateUser(UUID id,User user){
+        User userToUpdate = userRepository.findById(id)
+                .orElseThrow(UserNotFoundException::new);
+
+        userToUpdate.setUsername(user.getUsername() != null ? user.getUsername() : userToUpdate.getUsername());
+        userToUpdate.setFirstName(user.getFirstName() != null ? user.getFirstName() : userToUpdate.getFirstName());
+        userToUpdate.setLastName(user.getLastName() != null ? user.getLastName() : userToUpdate.getLastName());
+        userToUpdate.setEmail(user.getEmail() != null ? user.getEmail() : userToUpdate.getEmail());
+        userToUpdate.setNationality(user.getNationality() != null ? user.getNationality() : userToUpdate.getNationality());
+        userToUpdate.setLicenseExpirationDate(user.getLicenseExpirationDate() != null ? user.getLicenseExpirationDate() : userToUpdate.getLicenseExpirationDate());
+
+        return userRepository.save(userToUpdate);
     }
 }
