@@ -1,39 +1,31 @@
 package org.youcode.maska_hunters_league.web.VMs;
 
-
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.youcode.maska_hunters_league.domain.entities.Participation;
-import org.youcode.maska_hunters_league.domain.enums.Role;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserVM {
-
-    private UUID id;
+public class UpdateUserVM {
 
     private String username;
-
-    private Role role;
 
     private String firstName;
 
     private String lastName;
 
-    private String cin;
-
+    @Email(message = "invalid email format")
     private String email;
 
     private String nationality;
 
-    private LocalDateTime joinDate;
-
+    @FutureOrPresent(message = "License expiration date cannot be in the past")
     private LocalDateTime licenseExpirationDate;
-
 }
