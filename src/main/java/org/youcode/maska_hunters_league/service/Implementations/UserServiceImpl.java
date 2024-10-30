@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import org.youcode.maska_hunters_league.domain.entities.User;
 import org.youcode.maska_hunters_league.repository.UserRepository;
 import org.youcode.maska_hunters_league.service.UserService;
+import org.youcode.maska_hunters_league.web.exception.user.InvalidCredentialsException;
+import org.youcode.maska_hunters_league.web.exception.user.UserDoesntExistException;
+
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,5 +25,17 @@ public class UserServiceImpl implements UserService {
     public Page<User> getAllUsersPaginated(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return userRepository.findAll(pageable);
+    }
+
+    @Override
+    public Boolean deleteUser(UUID id) {
+        if (id == null) {
+            throw new InvalidCredentialsException("Invalid user id");
+        }
+        User user = userRepository.findById(id)
+                .orElseThrow(UserDoesntExistException::new);
+
+        userRepository.deleteById(id);
+        return true;
     }
 }
