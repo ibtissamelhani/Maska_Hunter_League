@@ -1,11 +1,9 @@
 package org.youcode.maska_hunters_league.web.rest;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.Species;
 import org.youcode.maska_hunters_league.service.SpeciesService;
 
@@ -20,5 +18,11 @@ public class SpeciesController {
     public ResponseEntity<Species> createSpecies(@RequestBody Species species) {
         Species createdSpecies = speciesService.createSpecies(species);
         return ResponseEntity.ok(createdSpecies);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Species>> getAllSpecies(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+        Page<Species> species = speciesService.getAllSpecies(page,size);
+        return ResponseEntity.ok(species);
     }
 }
