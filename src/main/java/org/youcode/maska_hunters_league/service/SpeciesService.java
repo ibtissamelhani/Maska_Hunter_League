@@ -10,4 +10,5 @@ public interface SpeciesService {
     Species createSpecies(Species species);
     Page<Species> getAllSpecies(int page, int size);
     void delete(UUID id);
+    Species updateSpecies(UUID id, Species species);
 }

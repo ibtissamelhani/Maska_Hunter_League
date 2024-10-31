@@ -43,4 +43,18 @@ public class SpeciesServiceImpl implements SpeciesService {
         speciesRepository.delete(speciesToDelete);
     }
 
+    @Override
+    public Species updateSpecies(UUID id, Species species) {
+        Species speciesToUpdate = speciesRepository.findById(id)
+                .orElseThrow(() -> new SpeciesNotFoundException("Species not found"));
+
+        speciesToUpdate.setName(species.getName() != null ? species.getName() : speciesToUpdate.getName());
+        speciesToUpdate.setCategory(species.getCategory() != null ? species.getCategory() : speciesToUpdate.getCategory());
+        speciesToUpdate.setMinimumWeight(species.getMinimumWeight() != null ? species.getMinimumWeight() : speciesToUpdate.getMinimumWeight());
+        speciesToUpdate.setDifficulty(species.getDifficulty() != null ? species.getDifficulty() : speciesToUpdate.getDifficulty());
+        speciesToUpdate.setPoints(species.getPoints() != null ? species.getPoints() : speciesToUpdate.getPoints());
+
+        return speciesRepository.save(speciesToUpdate);
+    }
+
 }

@@ -33,4 +33,13 @@ public class SpeciesController {
         speciesService.delete(id);
         return ResponseEntity.ok("species is deleted successfully");
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Species> updateSpecies(
+            @PathVariable UUID id,
+            @RequestBody Species speciesUpdates) {
+
+        Species updatedSpecies = speciesService.updateSpecies(id, speciesUpdates);
+        return ResponseEntity.ok(updatedSpecies);
+    }
 }
