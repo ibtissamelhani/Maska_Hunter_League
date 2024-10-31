@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.youcode.maska_hunters_league.web.exception.species.InvalidSpeciesException;
+import org.youcode.maska_hunters_league.web.exception.species.SpeciesNotFoundException;
 import org.youcode.maska_hunters_league.web.exception.user.*;
 
 import java.util.HashMap;
@@ -54,6 +55,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidSpeciesException.class)
     public ResponseEntity<String> handleInvalidSpeciesException(InvalidSpeciesException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(SpeciesNotFoundException.class)
+    public ResponseEntity<String> handelSpeciesNotFoundException(SpeciesNotFoundException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }
