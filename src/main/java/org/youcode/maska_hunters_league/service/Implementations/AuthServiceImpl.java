@@ -1,13 +1,12 @@
 package org.youcode.maska_hunters_league.service.Implementations;
 
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.youcode.maska_hunters_league.domain.entities.User;
 import org.youcode.maska_hunters_league.repository.UserRepository;
 import org.youcode.maska_hunters_league.service.AuthService;
 import org.youcode.maska_hunters_league.web.exception.user.EmailAlreadyExistException;
-import org.youcode.maska_hunters_league.web.exception.user.InvalidCredentialsException;
+import org.youcode.maska_hunters_league.web.exception.InvalidCredentialsException;
 import org.youcode.maska_hunters_league.web.exception.user.InvalidUserExeption;
 import org.youcode.maska_hunters_league.web.exception.user.UserNameAlreadyExistException;
 
