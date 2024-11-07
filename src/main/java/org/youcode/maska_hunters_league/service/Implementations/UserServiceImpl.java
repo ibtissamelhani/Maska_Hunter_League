@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findByUsernameOrEmail(String searchKey){
-        return userRepository.findByUsernameContainingOrEmailContaining(searchKey, searchKey);
+        return userRepository.findByUsernameContainingOrEmailContaining(searchKey,searchKey);
     }
 
     @Override
