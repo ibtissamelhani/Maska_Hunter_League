@@ -1,10 +1,9 @@
 package org.youcode.maska_hunters_league.web.VMs;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.youcode.maska_hunters_league.domain.enums.Role;
+import org.youcode.maska_hunters_league.validation.EnumValue;
 
 @Getter
 @Setter
@@ -40,7 +39,7 @@ public class SignUpVM {
     private String nationality;
 
     @NotNull(message = "role cannot be null")
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @EnumValue(enumClass = Role.class, message = "invalid role")
+    private String role;
 }
 

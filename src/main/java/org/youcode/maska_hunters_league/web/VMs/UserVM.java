@@ -2,7 +2,6 @@ package org.youcode.maska_hunters_league.web.VMs;
 
 
 import lombok.*;
-import org.youcode.maska_hunters_league.domain.entities.Participation;
 import org.youcode.maska_hunters_league.domain.enums.Role;
 
 import java.time.LocalDateTime;
