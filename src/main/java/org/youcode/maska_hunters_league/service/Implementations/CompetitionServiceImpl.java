@@ -6,6 +6,7 @@ import org.youcode.maska_hunters_league.repository.CompetitionRepository;
 import org.youcode.maska_hunters_league.service.CompetitionService;
 import org.youcode.maska_hunters_league.utils.DateUtils;
 import org.youcode.maska_hunters_league.web.exception.InvalidCredentialsException;
+import org.youcode.maska_hunters_league.web.exception.competition.CompetitionAlreadyExistException;
 import org.youcode.maska_hunters_league.web.exception.competition.CompetitionInSameWeekException;
 
 import java.time.LocalDateTime;
@@ -24,6 +25,9 @@ public class CompetitionServiceImpl implements CompetitionService {
     public Competition createCompetition(Competition competition) {
         validateCompetition(competition);
         String code = generateCompetitionCode(competition.getLocation(),competition.getDate());
+        competitionRepository.findByCode(code)
+                .ifPresent(c -> {throw new CompetitionAlreadyExistException("competition already exist");
+                });
         competition.setCode(code);
         return competitionRepository.save(competition);
     }
