@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.youcode.maska_hunters_league.web.exception.competition.CompetitionInSameWeekException;
 import org.youcode.maska_hunters_league.web.exception.species.InvalidSpeciesException;
 import org.youcode.maska_hunters_league.web.exception.species.SpeciesNotFoundException;
 import org.youcode.maska_hunters_league.web.exception.user.*;
@@ -62,4 +63,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handelSpeciesNotFoundException(SpeciesNotFoundException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
-}
+
+    // Competition exceptions handler
+
+    @ExceptionHandler(CompetitionInSameWeekException.class)
+    public ResponseEntity<String> handleCompetitionInSameWeekException(CompetitionInSameWeekException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+
+    }

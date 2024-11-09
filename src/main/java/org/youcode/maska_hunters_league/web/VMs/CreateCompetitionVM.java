@@ -18,21 +18,22 @@ import java.time.LocalDateTime;
 @Builder
 public class CreateCompetitionVM {
 
-    @NotBlank
+    @NotBlank(message = "location is required")
     private String location;
 
-    @NotNull
-    @Future
+    @NotNull(message = "date is required")
+    @Future(message = "date must be in the future")
     private LocalDateTime date;
 
-    @NotNull
+    @NotNull(message = "species Type is required")
     @EnumValue(enumClass = SpeciesType.class , message = "invalid species Type")
     private String speciesType;
 
+    @NotNull(message = "minParticipants is required")
     @Min(1)
     private Integer minParticipants;
 
-    @NotNull
+    @NotNull@NotNull(message = "maxParticipants is required")
     @Min(1)
     private Integer maxParticipants;
 
