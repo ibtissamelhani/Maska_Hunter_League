@@ -2,6 +2,7 @@ package org.youcode.maska_hunters_league.web.rest;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -11,6 +12,7 @@ import org.youcode.maska_hunters_league.service.CompetitionService;
 import org.youcode.maska_hunters_league.web.VMs.CreateCompetitionVM;
 import org.youcode.maska_hunters_league.web.VMs.mapper.CreateCompetitionVMMapper;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +24,11 @@ public class CompetitionController {
     private final CompetitionService competitionService;
     private final CreateCompetitionVMMapper createCompetitionVMMapper;
 
+    @GetMapping
+    public ResponseEntity<Page<Competition>> getAllCompetitions(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Page<Competition> competitions = competitionService.findAllCompetitionsPaginated(page,size);
+        return ResponseEntity.ok(competitions);
+    }
 
     @PostMapping()
     public ResponseEntity<Competition> createCompetition(@Valid @RequestBody CreateCompetitionVM createCompetitionVM) {
