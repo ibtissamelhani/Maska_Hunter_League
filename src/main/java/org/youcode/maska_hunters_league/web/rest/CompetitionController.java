@@ -49,4 +49,14 @@ public class CompetitionController {
         CompetitionVM competitionVM = competitionVMMapper.toCompetitionVM(competition);
         return ResponseEntity.ok(competitionVM);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteCompetition(@PathVariable UUID id){
+        boolean isDeleted = competitionService.delete(id);
+        if (isDeleted){
+            return ResponseEntity.ok("deleted successfully");
+        }else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("failed to delete competition");
+        }
+    }
 }

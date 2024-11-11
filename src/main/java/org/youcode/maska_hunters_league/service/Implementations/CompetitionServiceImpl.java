@@ -45,10 +45,10 @@ public class CompetitionServiceImpl implements CompetitionService {
                     throw new CompetitionAlreadyExistException("competition already exist");
                 });
 
-//        List<Competition> competitionsInSameWeek = competitionRepository.findCompetitionsInSameWeek(competition.getDate());
-//        if (!competitionsInSameWeek.isEmpty()) {
-//            throw new InvalidCredentialsException("A competition already exists in the same week.");
-//        }
+        List<Competition> competitionsInSameWeek = competitionRepository.findCompetitionsInSameWeek(competition.getDate());
+        if (!competitionsInSameWeek.isEmpty()) {
+            throw new InvalidCredentialsException("A competition already exists in the same week.");
+        }
     }
 
     private String generateCompetitionCode(String location, LocalDateTime date) {
@@ -77,5 +77,17 @@ public class CompetitionServiceImpl implements CompetitionService {
     public Page<Competition> findAllCompetitionsPaginated(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return competitionRepository.findAll(pageable);
+    }
+
+    @Override
+    public Boolean delete(UUID id) {
+        if(id == null){
+            throw new InvalidCredentialsException("id can't be null");
+        }
+        competitionRepository.findById(id)
+                .orElseThrow(()-> new CompetitionNotFoundException("competition not found"));
+
+        competitionRepository.deleteById(id);
+        return true;
     }
 }

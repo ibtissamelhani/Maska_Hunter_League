@@ -13,4 +13,5 @@ public interface CompetitionService {
     Optional<Competition> findByCode(String code);
     Competition findById(UUID id);
     Page<Competition> findAllCompetitionsPaginated(int page, int size);
+    Boolean delete(UUID id);
 }
