@@ -9,6 +9,7 @@ import org.youcode.maska_hunters_league.repository.ParticipationRepository;
 import org.youcode.maska_hunters_league.service.CompetitionService;
 import org.youcode.maska_hunters_league.service.ParticipationService;
 import org.youcode.maska_hunters_league.service.UserService;
+import org.youcode.maska_hunters_league.web.exception.competition.RegistrationClosedException;
 import org.youcode.maska_hunters_league.web.exception.participation.ParticipationAlreadyExistException;
 import org.youcode.maska_hunters_league.web.exception.user.LicenseExpiredException;
 
@@ -30,9 +31,14 @@ public class ParticipationServiceImpl implements ParticipationService {
         Competition competition = competitionService.findById(competitionId);
         User user = userService.findById(userId);
 
+        if (Boolean.FALSE.equals(competition.getOpenRegistration())) {
+            throw new RegistrationClosedException("Registration for this competition is closed.");
+        }
+
         if (user.getLicenseExpirationDate() != null && user.getLicenseExpirationDate().isBefore(LocalDateTime.now())) {
             throw new LicenseExpiredException("User's license has expired and cannot participate.");
         }
+
 
         boolean isAlreadyRegistered = participationRepository.existsByUserAndCompetition(user,competition);
         if (isAlreadyRegistered){

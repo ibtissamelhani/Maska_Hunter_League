@@ -37,5 +37,5 @@ public class CreateCompetitionVM {
     @Min(1)
     private Integer maxParticipants;
 
-    private Boolean openRegistration = false;
+    private Boolean openRegistration = true;
 }
