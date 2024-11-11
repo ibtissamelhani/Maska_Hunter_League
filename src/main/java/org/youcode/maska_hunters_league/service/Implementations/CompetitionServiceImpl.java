@@ -45,10 +45,10 @@ public class CompetitionServiceImpl implements CompetitionService {
                     throw new CompetitionAlreadyExistException("competition already exist");
                 });
 
-//        List<Competition> competitionsInSameWeek = competitionRepository.findCompetitionsInSameWeek(competition.getDate());
-//        if (!competitionsInSameWeek.isEmpty()) {
-//            throw new InvalidCredentialsException("A competition already exists in the same week.");
-//        }
+        List<Competition> competitionsInSameWeek = competitionRepository.findCompetitionsInSameWeek(competition.getDate());
+        if (!competitionsInSameWeek.isEmpty()) {
+            throw new InvalidCredentialsException("A competition already exists in the same week.");
+        }
     }
 
     private String generateCompetitionCode(String location, LocalDateTime date) {
