@@ -116,4 +116,16 @@ public class CompetitionServiceImpl implements CompetitionService {
         }
         return competitionRepository.findCompetitionDetailsById(id);
     }
+
+    @Override
+    public void closeRegistrationsBeforeCompetition() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime next24Hours = now.plusHours(24);
+
+        competitionRepository.findByDateBetweenAndOpenRegistrationIsTrue(now,next24Hours)
+                .forEach(competition -> {
+                    competition.setOpenRegistration(false);
+                    competitionRepository.save(competition);
+                });
+    }
 }

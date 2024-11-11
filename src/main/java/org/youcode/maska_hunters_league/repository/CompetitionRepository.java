@@ -25,4 +25,6 @@ public interface CompetitionRepository extends JpaRepository<Competition, UUID> 
             "GROUP BY c.code, c.location, c.date")
     CompetitionDTO findCompetitionDetailsById(@Param("competitionId") UUID competitionId);
 
+    List<Competition> findByDateBetweenAndOpenRegistrationIsTrue(LocalDateTime now, LocalDateTime next24Hours);
+
 }

@@ -16,4 +16,5 @@ public interface CompetitionService {
     Boolean delete(UUID id);
     Competition update(UUID id, Competition competition);
     CompetitionDTO getCompetitionDetails(UUID id);
+    void closeRegistrationsBeforeCompetition();
 }
