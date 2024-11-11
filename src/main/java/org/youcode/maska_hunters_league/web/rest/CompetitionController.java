@@ -10,10 +10,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.Competition;
 import org.youcode.maska_hunters_league.service.CompetitionService;
+import org.youcode.maska_hunters_league.service.DTOs.CompetitionDTO;
 import org.youcode.maska_hunters_league.web.VMs.CompetitionVM;
 import org.youcode.maska_hunters_league.web.VMs.CreateCompetitionVM;
+import org.youcode.maska_hunters_league.web.VMs.UpdateCompetitionVM;
 import org.youcode.maska_hunters_league.web.VMs.mapper.CompetitionVMMapper;
 import org.youcode.maska_hunters_league.web.VMs.mapper.CreateCompetitionVMMapper;
+import org.youcode.maska_hunters_league.web.VMs.mapper.UpdateCompetitionVMMapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +30,7 @@ public class CompetitionController {
     private final CompetitionService competitionService;
     private final CreateCompetitionVMMapper createCompetitionVMMapper;
     private final CompetitionVMMapper competitionVMMapper;
+    private final UpdateCompetitionVMMapper updateCompetitionVMMapper;
 
     @GetMapping
     public ResponseEntity<Page<CompetitionVM>> getAllCompetitions(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
@@ -44,10 +48,9 @@ public class CompetitionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CompetitionVM> getCompetitionDetails(@PathVariable UUID id) {
-        Competition competition = competitionService.findById(id);
-        CompetitionVM competitionVM = competitionVMMapper.toCompetitionVM(competition);
-        return ResponseEntity.ok(competitionVM);
+    public ResponseEntity<CompetitionDTO> getCompetitionDetails(@PathVariable UUID id) {
+        CompetitionDTO competitionDTO = competitionService.getCompetitionDetails(id);
+        return ResponseEntity.ok(competitionDTO);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -58,5 +61,13 @@ public class CompetitionController {
         }else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("failed to delete competition");
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CompetitionVM> update(@PathVariable UUID id, @RequestBody @Valid UpdateCompetitionVM updateData){
+        Competition competition = updateCompetitionVMMapper.toCompetition(updateData);
+        Competition updatedCompetition = competitionService.update(id,competition);
+        CompetitionVM competitionVM = competitionVMMapper.toCompetitionVM(updatedCompetition);
+        return ResponseEntity.ok(competitionVM);
     }
 }
