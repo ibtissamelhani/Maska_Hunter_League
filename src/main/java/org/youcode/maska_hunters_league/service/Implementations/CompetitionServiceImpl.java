@@ -84,10 +84,27 @@ public class CompetitionServiceImpl implements CompetitionService {
         if(id == null){
             throw new InvalidCredentialsException("id can't be null");
         }
-        competitionRepository.findById(id)
-                .orElseThrow(()-> new CompetitionNotFoundException("competition not found"));
-
-        competitionRepository.deleteById(id);
+        Competition competitionToDelete = findById(id);
+        competitionRepository.delete(competitionToDelete);
         return true;
+    }
+
+    @Override
+    public Competition update(UUID id, Competition competition) {
+        Competition competitionToUpdated = findById(id);
+
+        competitionToUpdated.setLocation(competition.getLocation());
+        competitionToUpdated.setDate(competition.getDate());
+        competitionToUpdated.setSpeciesType(competition.getSpeciesType());
+        competitionToUpdated.setMinParticipants(competition.getMinParticipants());
+        competitionToUpdated.setMaxParticipants(competition.getMaxParticipants());
+        competitionToUpdated.setOpenRegistration(competition.getOpenRegistration());
+
+        String code = generateCompetitionCode(competitionToUpdated.getLocation(),competitionToUpdated.getDate());
+        competitionToUpdated.setCode(code);
+
+        validateCompetition(competitionToUpdated);
+
+        return competitionRepository.save(competitionToUpdated);
     }
 }
