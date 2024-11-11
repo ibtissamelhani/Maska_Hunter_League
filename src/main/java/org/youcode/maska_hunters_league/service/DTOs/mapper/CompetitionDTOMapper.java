@@ -6,6 +6,6 @@ import org.youcode.maska_hunters_league.service.DTOs.CompetitionDTO;
 
 @Mapper(componentModel = "spring")
 public interface CompetitionDTOMapper {
-    Competition toCompetition(CompetitionDTO competitionDTO);
     CompetitionDTO toCompetitionDTO(Competition competition);
+    Competition toCompetition (CompetitionDTO competitionDTO);
 }

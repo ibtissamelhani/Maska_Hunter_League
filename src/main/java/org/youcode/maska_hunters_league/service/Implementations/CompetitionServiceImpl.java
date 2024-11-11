@@ -111,7 +111,9 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public CompetitionDTO getCompetitionDetails(UUID id) {
-        Competition competition = findById(id);
-        return competitionDTOMapper.toCompetitionDTO(competition);
+        if (id == null){
+            throw new InvalidCredentialsException("id can't be null");
+        }
+        return competitionRepository.findCompetitionDetailsById(id);
     }
 }
