@@ -2,7 +2,7 @@ package org.youcode.maska_hunters_league.web.VMs.mapper;
 
 import org.mapstruct.Mapper;
 import org.youcode.maska_hunters_league.domain.entities.User;
-import org.youcode.maska_hunters_league.web.VMs.SignUpVM;
+import org.youcode.maska_hunters_league.web.VMs.AuthVMs.SignUpVM;
 
 @Mapper(componentModel = "spring")
 public interface SignUpVMMapper {

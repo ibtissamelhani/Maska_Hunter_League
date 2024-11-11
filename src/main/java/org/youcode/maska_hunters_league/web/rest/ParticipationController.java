@@ -7,9 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.Participation;
 import org.youcode.maska_hunters_league.service.ParticipationService;
-import org.youcode.maska_hunters_league.web.VMs.ParticipationRequestVM;
-
-import java.util.UUID;
+import org.youcode.maska_hunters_league.web.VMs.ParticipationVMs.ParticipationRequestVM;
 
 @RestController
 @RequestMapping("v1/api/participation")

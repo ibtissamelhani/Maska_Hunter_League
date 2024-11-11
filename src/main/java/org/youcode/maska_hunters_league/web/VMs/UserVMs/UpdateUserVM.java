@@ -1,9 +1,7 @@
-package org.youcode.maska_hunters_league.web.VMs;
+package org.youcode.maska_hunters_league.web.VMs.UserVMs;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;

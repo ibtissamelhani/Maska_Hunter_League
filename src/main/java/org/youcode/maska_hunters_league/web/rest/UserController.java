@@ -10,8 +10,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.User;
 import org.youcode.maska_hunters_league.service.UserService;
-import org.youcode.maska_hunters_league.web.VMs.UpdateUserVM;
-import org.youcode.maska_hunters_league.web.VMs.UserVM;
+import org.youcode.maska_hunters_league.web.VMs.UserVMs.UpdateUserVM;
+import org.youcode.maska_hunters_league.web.VMs.UserVMs.UserVM;
 import org.youcode.maska_hunters_league.web.VMs.mapper.UpdateUserVMMapper;
 import org.youcode.maska_hunters_league.web.VMs.mapper.UserVMMapper;
 

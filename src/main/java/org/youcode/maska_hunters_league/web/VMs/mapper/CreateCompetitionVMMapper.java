@@ -2,7 +2,7 @@ package org.youcode.maska_hunters_league.web.VMs.mapper;
 
 import org.mapstruct.Mapper;
 import org.youcode.maska_hunters_league.domain.entities.Competition;
-import org.youcode.maska_hunters_league.web.VMs.CreateCompetitionVM;
+import org.youcode.maska_hunters_league.web.VMs.CompetitionVMs.CreateCompetitionVM;
 
 @Mapper(componentModel = "spring")
 public interface CreateCompetitionVMMapper {

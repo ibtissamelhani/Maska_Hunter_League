@@ -2,7 +2,7 @@ package org.youcode.maska_hunters_league.web.VMs.mapper;
 
 import org.mapstruct.Mapper;
 import org.youcode.maska_hunters_league.domain.entities.Species;
-import org.youcode.maska_hunters_league.web.VMs.SpeciesVM;
+import org.youcode.maska_hunters_league.web.VMs.SpeciesVMs.SpeciesVM;
 
 @Mapper(componentModel = "spring")
 public interface SpeciesVMMapper {

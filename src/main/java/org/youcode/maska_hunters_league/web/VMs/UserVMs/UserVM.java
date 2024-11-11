@@ -1,11 +1,10 @@
-package org.youcode.maska_hunters_league.web.VMs;
+package org.youcode.maska_hunters_league.web.VMs.UserVMs;
 
 
 import lombok.*;
 import org.youcode.maska_hunters_league.domain.enums.Role;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
