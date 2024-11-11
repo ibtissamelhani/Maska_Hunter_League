@@ -78,4 +78,16 @@ public class CompetitionServiceImpl implements CompetitionService {
         Pageable pageable = PageRequest.of(page, size);
         return competitionRepository.findAll(pageable);
     }
+
+    @Override
+    public Boolean delete(UUID id) {
+        if(id == null){
+            throw new InvalidCredentialsException("id can't be null");
+        }
+        competitionRepository.findById(id)
+                .orElseThrow(()-> new CompetitionNotFoundException("competition not found"));
+
+        competitionRepository.deleteById(id);
+        return true;
+    }
 }
