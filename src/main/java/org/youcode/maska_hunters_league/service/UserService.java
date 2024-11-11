@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface UserService {
     Page<User> getAllUsersPaginated(int page, int size);
     Boolean deleteUser(UUID id);
-    List<User> findByUsernameOrEmail(String searchKey);
+    List<User> findByUsernameOrEmail(String username, String email);
     User updateUser(UUID id,User user);
     User findById(UUID id);
 

@@ -48,8 +48,9 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<UserVM>> searchMembers(@RequestParam String searchKey) {
-        List<User> users = userService.findByUsernameOrEmail(searchKey);
+    public ResponseEntity<List<UserVM>> searchMembers(@RequestParam(required = false) String username,
+                                                      @RequestParam(required = false) String email) {
+        List<User> users = userService.findByUsernameOrEmail(username,email);
         List<UserVM> userVMS = users.stream().map(userVMMapper::toUserVM).toList();
         return ResponseEntity.ok(userVMS);
     }

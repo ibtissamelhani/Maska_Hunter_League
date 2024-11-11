@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByUsernameOrEmail(String searchKey){
-        return userRepository.findByUsernameContainingOrEmailContaining(searchKey,searchKey);
+    public List<User> findByUsernameOrEmail(String username, String email){
+        return userRepository.findByCriteria(username, email);
     }
 
     @Override
