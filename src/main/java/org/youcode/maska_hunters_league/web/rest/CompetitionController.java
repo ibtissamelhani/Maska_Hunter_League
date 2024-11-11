@@ -44,8 +44,9 @@ public class CompetitionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Competition> getCompetitionDetails(@PathVariable UUID id) {
+    public ResponseEntity<CompetitionVM> getCompetitionDetails(@PathVariable UUID id) {
         Competition competition = competitionService.findById(id);
-        return ResponseEntity.ok(competition);
+        CompetitionVM competitionVM = competitionVMMapper.toCompetitionVM(competition);
+        return ResponseEntity.ok(competitionVM);
     }
 }
