@@ -59,4 +59,12 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(userToUpdate);
     }
+
+    @Override
+    public User findById(UUID id) {
+        if (id == null){
+            throw new InvalidCredentialsException("user id cant be null");
+        }
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    }
 }

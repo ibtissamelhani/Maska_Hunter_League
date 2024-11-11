@@ -11,4 +11,6 @@ public interface UserService {
     Boolean deleteUser(UUID id);
     List<User> findByUsernameOrEmail(String searchKey);
     User updateUser(UUID id,User user);
+    User findById(UUID id);
+
 }
