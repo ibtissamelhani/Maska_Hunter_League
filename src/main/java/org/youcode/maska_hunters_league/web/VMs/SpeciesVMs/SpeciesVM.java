@@ -1,4 +1,4 @@
-package org.youcode.maska_hunters_league.web.VMs;
+package org.youcode.maska_hunters_league.web.VMs.SpeciesVMs;
 
 import jakarta.validation.constraints.*;
 import lombok.*;

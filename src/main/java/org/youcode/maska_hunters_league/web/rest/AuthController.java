@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.youcode.maska_hunters_league.domain.entities.User;
 import org.youcode.maska_hunters_league.service.AuthService;
-import org.youcode.maska_hunters_league.web.VMs.SignInVM;
-import org.youcode.maska_hunters_league.web.VMs.SignUpVM;
+import org.youcode.maska_hunters_league.web.VMs.AuthVMs.SignInVM;
+import org.youcode.maska_hunters_league.web.VMs.AuthVMs.SignUpVM;
 import org.youcode.maska_hunters_league.web.VMs.mapper.SignInVMMapper;
 import org.youcode.maska_hunters_league.web.VMs.mapper.SignUpVMMapper;
 

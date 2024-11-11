@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.youcode.maska_hunters_league.web.exception.competition.CompetitionAlreadyExistException;
 import org.youcode.maska_hunters_league.web.exception.competition.CompetitionNotFoundException;
+import org.youcode.maska_hunters_league.web.exception.competition.RegistrationClosedException;
+import org.youcode.maska_hunters_league.web.exception.participation.ParticipationAlreadyExistException;
 import org.youcode.maska_hunters_league.web.exception.species.InvalidSpeciesException;
 import org.youcode.maska_hunters_league.web.exception.species.SpeciesNotFoundException;
 import org.youcode.maska_hunters_league.web.exception.user.*;
@@ -53,6 +55,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
+    @ExceptionHandler(LicenseExpiredException.class)
+    public ResponseEntity<String> handleLicenseExpiredException(LicenseExpiredException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
     //Species exceptions handler
 
     @ExceptionHandler(InvalidSpeciesException.class)
@@ -74,6 +81,18 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CompetitionNotFoundException.class)
     public ResponseEntity<String> handelCompetitionNotFoundException(CompetitionNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(RegistrationClosedException.class)
+    public ResponseEntity<String> handelRegistrationClosedException(RegistrationClosedException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    // Participation exceptions handler
+
+    @ExceptionHandler(ParticipationAlreadyExistException.class)
+    public ResponseEntity<String> handelParticipationAlreadyExistException(ParticipationAlreadyExistException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 

@@ -1,18 +1,9 @@
 package org.youcode.maska_hunters_league.service.DTOs;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.*;
-import org.youcode.maska_hunters_league.domain.enums.SpeciesType;
-
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+
 public class CompetitionDTO {
 
     private String code;
@@ -21,12 +12,47 @@ public class CompetitionDTO {
 
     private LocalDateTime date;
 
-    @Enumerated(EnumType.STRING)
-    private SpeciesType speciesType;
+    private Long numberOfParticipants;
 
-    private Integer minParticipants;
+    public CompetitionDTO() {
+    }
 
-    private Integer maxParticipants;
+    public CompetitionDTO(String code, String location, LocalDateTime date, Long numberOfParticipants) {
+        this.code = code;
+        this.location = location;
+        this.date = date;
+        this.numberOfParticipants = numberOfParticipants;
+    }
 
-    private Boolean openRegistration;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public Long getNumberOfParticipants() {
+        return numberOfParticipants;
+    }
+
+    public void setNumberOfParticipants(Long numberOfParticipants) {
+        this.numberOfParticipants = numberOfParticipants;
+    }
 }

@@ -1,4 +1,4 @@
-package org.youcode.maska_hunters_league.web.VMs;
+package org.youcode.maska_hunters_league.web.VMs.CompetitionVMs;
 
 
 import jakarta.validation.constraints.Future;
@@ -37,5 +37,5 @@ public class CreateCompetitionVM {
     @Min(1)
     private Integer maxParticipants;
 
-    private Boolean openRegistration = false;
+    private Boolean openRegistration = true;
 }

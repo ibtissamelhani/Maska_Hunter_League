@@ -111,7 +111,21 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public CompetitionDTO getCompetitionDetails(UUID id) {
-        Competition competition = findById(id);
-        return competitionDTOMapper.toCompetitionDTO(competition);
+        if (id == null){
+            throw new InvalidCredentialsException("id can't be null");
+        }
+        return competitionRepository.findCompetitionDetailsById(id);
+    }
+
+    @Override
+    public void closeRegistrationsBeforeCompetition() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime next24Hours = now.plusHours(24);
+
+        competitionRepository.findByDateBetweenAndOpenRegistrationIsTrue(now,next24Hours)
+                .forEach(competition -> {
+                    competition.setOpenRegistration(false);
+                    competitionRepository.save(competition);
+                });
     }
 }

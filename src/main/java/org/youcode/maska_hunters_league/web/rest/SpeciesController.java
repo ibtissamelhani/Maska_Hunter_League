@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.Species;
 import org.youcode.maska_hunters_league.service.SpeciesService;
-import org.youcode.maska_hunters_league.web.VMs.SpeciesVM;
+import org.youcode.maska_hunters_league.web.VMs.SpeciesVMs.SpeciesVM;
 import org.youcode.maska_hunters_league.web.VMs.mapper.SpeciesVMMapper;
 
 import java.util.UUID;

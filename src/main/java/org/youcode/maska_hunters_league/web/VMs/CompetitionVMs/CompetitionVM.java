@@ -1,4 +1,4 @@
-package org.youcode.maska_hunters_league.web.VMs;
+package org.youcode.maska_hunters_league.web.VMs.CompetitionVMs;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
