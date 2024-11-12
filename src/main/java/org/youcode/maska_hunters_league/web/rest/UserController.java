@@ -4,11 +4,13 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.User;
+import org.youcode.maska_hunters_league.service.DTOs.SearchUserDTO;
 import org.youcode.maska_hunters_league.service.UserService;
 import org.youcode.maska_hunters_league.web.VMs.UserVMs.UpdateUserVM;
 import org.youcode.maska_hunters_league.web.VMs.UserVMs.UserVM;
@@ -48,9 +50,9 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<UserVM>> searchMembers(@RequestParam String searchKey) {
-        List<User> users = userService.findByUsernameOrEmail(searchKey);
-        List<UserVM> userVMS = users.stream().map(userVMMapper::toUserVM).toList();
+    public ResponseEntity<List<UserVM>> searchUsers(@RequestBody SearchUserDTO searchUserDTO) {
+        List<User> result = userService.searchUsers(searchUserDTO);
+        List<UserVM> userVMS = result.stream().map(userVMMapper::toUserVM).toList();
         return ResponseEntity.ok(userVMS);
     }
     @PutMapping("/{userId}")

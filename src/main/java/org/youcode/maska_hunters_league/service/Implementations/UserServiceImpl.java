@@ -1,11 +1,14 @@
 package org.youcode.maska_hunters_league.service.Implementations;
 
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.youcode.maska_hunters_league.domain.entities.User;
 import org.youcode.maska_hunters_league.repository.UserRepository;
+import org.youcode.maska_hunters_league.repository.UserSearchRepository;
+import org.youcode.maska_hunters_league.service.DTOs.SearchUserDTO;
 import org.youcode.maska_hunters_league.service.UserService;
 import org.youcode.maska_hunters_league.web.exception.InvalidCredentialsException;
 import org.youcode.maska_hunters_league.web.exception.user.UserNotFoundException;
@@ -14,13 +17,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private UserSearchRepository userSearchRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public Page<User> getAllUsersPaginated(int page, int size) {
@@ -41,8 +43,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByUsernameOrEmail(String searchKey){
-        return userRepository.findByUsernameContainingOrEmailContaining(searchKey,searchKey);
+    public List<User> searchUsers(SearchUserDTO searchUserDTO){
+        return userSearchRepository.findByCriteria(searchUserDTO);
     }
 
     @Override
