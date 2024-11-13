@@ -5,9 +5,11 @@ import org.youcode.maska_hunters_league.domain.entities.Competition;
 import org.youcode.maska_hunters_league.domain.entities.Participation;
 import org.youcode.maska_hunters_league.domain.entities.User;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ParticipationRepository extends JpaRepository<Participation, UUID> {
 
     boolean existsByUserAndCompetition(User user, Competition competition);
+    List<Participation> findByUserId(UUID userId);
 }

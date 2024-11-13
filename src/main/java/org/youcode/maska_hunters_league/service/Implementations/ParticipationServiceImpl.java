@@ -7,14 +7,17 @@ import org.youcode.maska_hunters_league.domain.enums.Difficulty;
 import org.youcode.maska_hunters_league.domain.enums.SpeciesType;
 import org.youcode.maska_hunters_league.repository.ParticipationRepository;
 import org.youcode.maska_hunters_league.service.CompetitionService;
+import org.youcode.maska_hunters_league.service.DTOs.ParticipationResultDTO;
 import org.youcode.maska_hunters_league.service.ParticipationService;
 import org.youcode.maska_hunters_league.service.UserService;
+import org.youcode.maska_hunters_league.web.exception.InvalidCredentialsException;
 import org.youcode.maska_hunters_league.web.exception.competition.RegistrationClosedException;
 import org.youcode.maska_hunters_league.web.exception.participation.ParticipationAlreadyExistException;
 import org.youcode.maska_hunters_league.web.exception.participation.ParticipationNotFoundException;
 import org.youcode.maska_hunters_league.web.exception.user.LicenseExpiredException;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -75,5 +78,21 @@ public class ParticipationServiceImpl implements ParticipationService {
 
         participation.setScore(score);
         participationRepository.save(participation);
+    }
+
+    @Override
+    public List<ParticipationResultDTO> getUserResults(UUID userId) {
+        if (userId ==null){
+            throw new InvalidCredentialsException("user id can't be null");
+        }
+        List<Participation> participations = participationRepository.findByUserId(userId);
+
+        return participations.stream()
+                .map(participation -> ParticipationResultDTO.builder()
+                        .competitionCode(participation.getCompetition().getCode())
+                        .speciesType(participation.getHunts().get(0).getSpecies().getCategory())
+                        .score(participation.getScore())
+                        .build())
+                .toList();
     }
 }
