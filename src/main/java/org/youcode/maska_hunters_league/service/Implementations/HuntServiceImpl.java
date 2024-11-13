@@ -11,6 +11,7 @@ import org.youcode.maska_hunters_league.service.DTOs.HuntRequestDTO;
 import org.youcode.maska_hunters_league.service.HuntService;
 import org.youcode.maska_hunters_league.service.ParticipationService;
 import org.youcode.maska_hunters_league.service.SpeciesService;
+import org.youcode.maska_hunters_league.web.exception.InvalidCredentialsException;
 
 import java.util.UUID;
 
@@ -28,6 +29,10 @@ public class HuntServiceImpl implements HuntService {
 
         Participation participation = participationService.findById(huntRequestDTO.getParticipationId());
         Species species = speciesService.findById(huntRequestDTO.getSpeciesId());
+
+        if (huntRequestDTO.getWeight() < species.getMinimumWeight()) {
+            throw new InvalidCredentialsException("Hunt weight must be at least " + species.getMinimumWeight());
+        }
         Hunt hunt = Hunt.builder()
                 .weight(huntRequestDTO.getWeight())
                 .species(species)
