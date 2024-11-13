@@ -57,4 +57,8 @@ public class SpeciesServiceImpl implements SpeciesService {
         return speciesRepository.save(speciesToUpdate);
     }
 
+    @Override
+    public Species findById(UUID id) {
+        return speciesRepository.findById(id).orElseThrow(()-> new SpeciesNotFoundException("species not found"));
+    }
 }

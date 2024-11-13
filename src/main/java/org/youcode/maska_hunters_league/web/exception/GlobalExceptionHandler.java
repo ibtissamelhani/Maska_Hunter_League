@@ -9,6 +9,7 @@ import org.youcode.maska_hunters_league.web.exception.competition.CompetitionAlr
 import org.youcode.maska_hunters_league.web.exception.competition.CompetitionNotFoundException;
 import org.youcode.maska_hunters_league.web.exception.competition.RegistrationClosedException;
 import org.youcode.maska_hunters_league.web.exception.participation.ParticipationAlreadyExistException;
+import org.youcode.maska_hunters_league.web.exception.participation.ParticipationNotFoundException;
 import org.youcode.maska_hunters_league.web.exception.species.InvalidSpeciesException;
 import org.youcode.maska_hunters_league.web.exception.species.SpeciesNotFoundException;
 import org.youcode.maska_hunters_league.web.exception.user.*;
@@ -93,6 +94,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ParticipationAlreadyExistException.class)
     public ResponseEntity<String> handelParticipationAlreadyExistException(ParticipationAlreadyExistException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(ParticipationNotFoundException.class)
+    public ResponseEntity<String> handelParticipationNotFoundException(ParticipationNotFoundException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
