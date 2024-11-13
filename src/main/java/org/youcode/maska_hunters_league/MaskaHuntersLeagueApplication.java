@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
+@EnableJpaAuditing(auditorAwareRef = "auditorAwareImpl")
 public class MaskaHuntersLeagueApplication {
 
     public static void main(String[] args) {
