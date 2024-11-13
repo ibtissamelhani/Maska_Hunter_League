@@ -12,4 +12,5 @@ public interface ParticipationService {
     Participation findById(UUID id);
     void updateParticipationScore(Participation participation);
     List<ParticipationResultDTO> getUserResults(UUID userId);
+    ParticipationResultDTO getUserCompetitionResult(UUID userId, UUID competitionId);
 }

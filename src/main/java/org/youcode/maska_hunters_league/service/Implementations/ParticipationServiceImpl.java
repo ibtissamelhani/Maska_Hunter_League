@@ -95,4 +95,16 @@ public class ParticipationServiceImpl implements ParticipationService {
                         .build())
                 .toList();
     }
+
+    @Override
+    public ParticipationResultDTO getUserCompetitionResult(UUID userId, UUID competitionId) {
+        Participation participation = participationRepository.findByUserIdAndCompetitionId(userId, competitionId)
+                .orElseThrow(() -> new ParticipationNotFoundException("Participation not found for user and competition"));
+
+        return ParticipationResultDTO.builder()
+                .competitionCode(participation.getCompetition().getCode())
+                .speciesType(participation.getHunts().get(0).getSpecies().getCategory())
+                .score(participation.getScore())
+                .build();
+    }
 }

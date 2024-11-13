@@ -28,8 +28,16 @@ public class ParticipationController {
     }
 
     @GetMapping("/results")
-    public ResponseEntity<List<ParticipationResultDTO>> getUserCompetitionResults(@RequestParam UUID userId) {
+    public ResponseEntity<List<ParticipationResultDTO>> getUserAllCompetitionsResults(@RequestParam UUID userId) {
         List<ParticipationResultDTO> results = participationService.getUserResults(userId);
         return ResponseEntity.ok(results);
+    }
+
+    @GetMapping("/competition-result")
+    public ResponseEntity<ParticipationResultDTO> getUserSingleCompetitionResult(
+            @RequestParam UUID userId, @RequestParam UUID competitionId) {
+
+        ParticipationResultDTO result = participationService.getUserCompetitionResult(userId, competitionId);
+        return ResponseEntity.ok(result);
     }
 }
