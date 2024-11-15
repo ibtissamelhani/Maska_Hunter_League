@@ -8,6 +8,7 @@ import org.youcode.maska_hunters_league.domain.enums.SpeciesType;
 import org.youcode.maska_hunters_league.repository.ParticipationRepository;
 import org.youcode.maska_hunters_league.service.CompetitionService;
 import org.youcode.maska_hunters_league.service.DTOs.ParticipationResultDTO;
+import org.youcode.maska_hunters_league.service.DTOs.PodiumDTO;
 import org.youcode.maska_hunters_league.service.ParticipationService;
 import org.youcode.maska_hunters_league.service.UserService;
 import org.youcode.maska_hunters_league.web.exception.InvalidCredentialsException;
@@ -106,5 +107,14 @@ public class ParticipationServiceImpl implements ParticipationService {
                 .speciesType(participation.getHunts().get(0).getSpecies().getCategory())
                 .score(participation.getScore())
                 .build();
+    }
+
+    @Override
+    public List<PodiumDTO> getTopThreeParticipants(UUID competitionId) {
+        if (competitionId == null){
+            throw new InvalidCredentialsException("competition id cant be null");
+        }
+        competitionService.findById(competitionId);
+        return participationRepository.findTopThreeByCompetition(competitionId);
     }
 }
