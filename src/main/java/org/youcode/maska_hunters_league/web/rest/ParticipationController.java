@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.Participation;
 import org.youcode.maska_hunters_league.service.DTOs.ParticipationResultDTO;
+import org.youcode.maska_hunters_league.service.DTOs.PodiumDTO;
 import org.youcode.maska_hunters_league.service.ParticipationService;
 import org.youcode.maska_hunters_league.web.VMs.ParticipationVMs.ParticipationRequestVM;
 
@@ -39,5 +40,11 @@ public class ParticipationController {
 
         ParticipationResultDTO result = participationService.getUserCompetitionResult(userId, competitionId);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/podium")
+    public ResponseEntity<List<PodiumDTO>> getTopThreeParticipants(@RequestParam UUID competitionId){
+        List<PodiumDTO> podium = participationService.getTopThreeParticipants(competitionId);
+        return ResponseEntity.ok(podium);
     }
 }
