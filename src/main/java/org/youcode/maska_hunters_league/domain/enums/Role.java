@@ -2,7 +2,9 @@ package org.youcode.maska_hunters_league.domain.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.List;
 import java.util.Set;
 @RequiredArgsConstructor
 
@@ -35,4 +37,11 @@ public enum Role {
     @Getter
     private final Set<Permission> permissions;
 
+    public List<SimpleGrantedAuthority> getAuthorities() {
+        var authorities =getPermissions().stream()
+                .map(permission -> new SimpleGrantedAuthority(permission.name()))
+                .toList();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + name()));
+        return authorities;
+    }
 }
