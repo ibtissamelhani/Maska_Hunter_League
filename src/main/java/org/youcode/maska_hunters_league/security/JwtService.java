@@ -7,11 +7,13 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.youcode.maska_hunters_league.domain.entities.User;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -21,6 +23,14 @@ public class JwtService {
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public UUID extractUserId(String token) {
+        return UUID.fromString(extractClaim(token, claims -> claims.get("id", String.class)));
+    }
+
+    public String extractUserRole(String token) {
+        return extractClaim(token, claims -> claims.get("role", String.class));
     }
 
     public String generateToken(UserDetails userDetails) {
@@ -44,9 +54,13 @@ public class JwtService {
             Map<String, Object> claims,
             UserDetails userDetails
     ) {
+        UUID userId = ((User) userDetails).getId(); // Replace AppUser with your user class if necessary
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
+                .claim("id", userId.toString())
+                .claim("role", userDetails.getAuthorities().stream().findFirst().map(Object::toString).orElse(""))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
