@@ -54,7 +54,7 @@ public class JwtService {
             Map<String, Object> claims,
             UserDetails userDetails
     ) {
-        UUID userId = ((User) userDetails).getId(); // Replace AppUser with your user class if necessary
+        UUID userId = ((User) userDetails).getId();
 
         return Jwts.builder()
                 .setClaims(claims)
