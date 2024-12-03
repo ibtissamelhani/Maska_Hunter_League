@@ -14,7 +14,7 @@ import org.youcode.maska_hunters_league.web.VMs.mapper.SpeciesVMMapper;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/species")
+@RequestMapping("api/v1/species")
 @AllArgsConstructor
 @Validated
 public class SpeciesController {

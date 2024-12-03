@@ -12,7 +12,7 @@ import org.youcode.maska_hunters_league.service.DTOs.HuntRequestDTO;
 import org.youcode.maska_hunters_league.service.HuntService;
 
 @RestController
-@RequestMapping("v1/api/hunt")
+@RequestMapping("api/v1/hunt")
 @AllArgsConstructor
 public class HuntController {
 

@@ -7,10 +7,11 @@ import org.youcode.maska_hunters_league.validation.EnumValue;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class SignUpVM {
+public class RegisterRequest {
+
     @NotBlank(message = "username cannot be blank")
     private String username;
 
@@ -42,4 +43,3 @@ public class SignUpVM {
     @EnumValue(enumClass = Role.class, message = "invalid role")
     private String role;
 }
-

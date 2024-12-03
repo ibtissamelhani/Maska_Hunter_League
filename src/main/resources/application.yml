@@ -12,10 +12,6 @@ spring:
     enabled: true
     change-log: db/changelog/master.yaml
 
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-
-
   docker:
     compose:
       file: src/main/docker/compose.yaml
