@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/participation")
+@RequestMapping("api/v1/participation")
 @AllArgsConstructor
 @Validated
 public class ParticipationController {

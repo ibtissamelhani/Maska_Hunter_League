@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/users")
+@RequestMapping("api/v1/users")
 @AllArgsConstructor
 @Validated
 public class UserController {

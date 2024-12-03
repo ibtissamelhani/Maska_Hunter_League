@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/competition")
+@RequestMapping("api/v1/competition")
 @Validated
 @AllArgsConstructor
 public class CompetitionController {
