@@ -41,6 +41,8 @@ public class SecurityConfiguration {
                 .requestMatchers(PUT, "/api/v1/competition/**").hasAuthority(CAN_MANAGE_COMPETITIONS.name())
                 .requestMatchers(DELETE, "/api/v1/competition/**").hasAuthority(CAN_MANAGE_COMPETITIONS.name())
 
+                .requestMatchers("/api/v1/hunt").hasAnyRole(ADMIN.name(), JURY.name())
+
                 .anyRequest()
                     .authenticated()
                 .and()
