@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.Competition;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/competition")
+@RequestMapping("api/v1/competition")
 @Validated
 @AllArgsConstructor
 public class CompetitionController {
@@ -33,6 +34,7 @@ public class CompetitionController {
     private final UpdateCompetitionVMMapper updateCompetitionVMMapper;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('CAN_VIEW_COMPETITIONS')")
     public ResponseEntity<Page<CompetitionVM>> getAllCompetitions(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Page<Competition> competitions = competitionService.findAllCompetitionsPaginated(page,size);
         List<CompetitionVM> competitionVMSList = competitions.stream().map(competitionVMMapper::toCompetitionVM).toList();
@@ -41,6 +43,7 @@ public class CompetitionController {
     }
 
     @PostMapping()
+    @PreAuthorize("hasAuthority('CAN_MANAGE_COMPETITIONS')")
     public ResponseEntity<Competition> createCompetition(@Valid @RequestBody CreateCompetitionVM createCompetitionVM) {
         Competition competition = createCompetitionVMMapper.toCompetition(createCompetitionVM);
         Competition savedCompetition = competitionService.createCompetition(competition);
@@ -48,12 +51,14 @@ public class CompetitionController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('CAN_VIEW_COMPETITIONS')")
     public ResponseEntity<CompetitionDTO> getCompetitionDetails(@PathVariable UUID id) {
         CompetitionDTO competitionDTO = competitionService.getCompetitionDetails(id);
         return ResponseEntity.ok(competitionDTO);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('CAN_MANAGE_COMPETITIONS')")
     public ResponseEntity<String> deleteCompetition(@PathVariable UUID id){
         boolean isDeleted = competitionService.delete(id);
         if (isDeleted){
@@ -64,6 +69,7 @@ public class CompetitionController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('CAN_MANAGE_COMPETITIONS')")
     public ResponseEntity<CompetitionVM> update(@PathVariable UUID id, @RequestBody @Valid UpdateCompetitionVM updateData){
         Competition competition = updateCompetitionVMMapper.toCompetition(updateData);
         Competition updatedCompetition = competitionService.update(id,competition);

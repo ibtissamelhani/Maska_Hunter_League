@@ -7,13 +7,13 @@ import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class SignInVM {
+public class AuthenticationRequest {
 
     @NotBlank(message = "username cannot be blank")
-    private String username;
+    private String email;
 
     @NotBlank(message = "password cannot be blank")
     @Size(min = 8, message = "password must be at least 8 characters")
