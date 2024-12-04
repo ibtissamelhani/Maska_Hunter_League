@@ -45,6 +45,7 @@ public class SecurityConfiguration {
                 .requestMatchers(POST,"/api/v1/participation/**").hasAuthority(CAN_PARTICIPATE.name())
                 .requestMatchers(GET,"/api/v1/participation/**").hasAuthority(CAN_VIEW_RANKINGS.name())
 
+                .requestMatchers("/api/v1/users/**").hasRole(ADMIN.name())
                 .anyRequest()
                     .authenticated()
                 .and()
