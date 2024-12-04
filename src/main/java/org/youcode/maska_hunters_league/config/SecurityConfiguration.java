@@ -12,8 +12,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.youcode.maska_hunters_league.security.JwtAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.youcode.maska_hunters_league.domain.enums.Role.ADMIN;
+import static org.springframework.http.HttpMethod.*;
+import static org.youcode.maska_hunters_league.domain.enums.Permission.CAN_MANAGE_COMPETITIONS;
+import static org.youcode.maska_hunters_league.domain.enums.Permission.CAN_VIEW_COMPETITIONS;
+import static org.youcode.maska_hunters_league.domain.enums.Role.*;
 
 @Configuration
 @EnableWebSecurity
@@ -33,6 +35,12 @@ public class SecurityConfiguration {
                 .requestMatchers("/api/v1/auth/**")
                     .permitAll()
                 .requestMatchers("/api/v1/species/**").hasRole(ADMIN.name())
+
+                .requestMatchers(GET, "/api/v1/competition/**").hasAuthority(CAN_VIEW_COMPETITIONS.name())
+                .requestMatchers(POST, "/api/v1/competition/**").hasAuthority(CAN_MANAGE_COMPETITIONS.name())
+                .requestMatchers(PUT, "/api/v1/competition/**").hasAuthority(CAN_MANAGE_COMPETITIONS.name())
+                .requestMatchers(DELETE, "/api/v1/competition/**").hasAuthority(CAN_MANAGE_COMPETITIONS.name())
+
                 .anyRequest()
                     .authenticated()
                 .and()
