@@ -56,11 +56,17 @@ public class JwtService {
     ) {
         UUID userId = ((User) userDetails).getId();
 
+        String role = userDetails.getAuthorities().stream()
+                .map(Object::toString)
+                .filter(authority -> authority.startsWith("ROLE_"))
+                .findFirst()
+                .orElse("");
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .claim("id", userId.toString())
-                .claim("role", userDetails.getAuthorities().stream().findFirst().map(Object::toString).orElse(""))
+                .claim("role", role)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
