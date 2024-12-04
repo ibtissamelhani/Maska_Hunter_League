@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.Species;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @RequestMapping("api/v1/species")
 @AllArgsConstructor
 @Validated
+@PreAuthorize("hasRole('ADMIN')")
 public class SpeciesController {
 
     private final SpeciesService speciesService;
