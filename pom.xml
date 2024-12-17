@@ -29,6 +29,10 @@
     <properties>
         <java.version>17</java.version>
         <junit.version>5.9.2</junit.version>
+        <sonar.projectKey>Maska_Hunter_League</sonar.projectKey>
+        <sonar.projectName>Maska_Hunter_League</sonar.projectName>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
+        <sonar.login>sqp_71009f8e9236235065247a5b3a2fbee03d15a8fc</sonar.login>
     </properties>
     <dependencies>
         <dependency>
@@ -177,6 +181,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
             </plugin>
         </plugins>
     </build>
