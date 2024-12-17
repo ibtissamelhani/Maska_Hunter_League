@@ -17,8 +17,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('SonarQube') {
-                        sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=Maska_Hunter_League -Dsonar.projectName="Maska_Hunter_League" -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login="        <sonar.login>sqp_71009f8e9236235065247a5b3a2fbee03d15a8fc</sonar.login>
-"'
+                        sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=Maska_Hunter_League -Dsonar.projectName="Maska_Hunter_League" -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONAR_TOKEN'
                     }
                 }
             }
