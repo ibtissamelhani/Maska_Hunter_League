@@ -16,7 +16,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv('SonarQube') {
+                    withSonarQubeEnv('sonarQube') {
                         sh '''
                               mvn clean verify sonar:sonar \
                                  -Dsonar.projectKey=Maska_Hunter_League \
