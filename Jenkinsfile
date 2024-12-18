@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SONARQUBE_URL = 'http://localhost:9000'
+        SONARQUBE_URL = 'http://sonarqube:9000'
         SONAR_TOKEN = credentials('sonar-token')  // Make sure to use your credential for SonarQube token
     }
 
@@ -16,6 +16,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
+
                     withSonarQubeEnv('sonarQube') {
                         sh '''
                               mvn clean verify sonar:sonar \
