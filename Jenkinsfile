@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/ibtissamelhani/Maska_Hunter_League.git'
+                git branch: 'main', url:'https://github.com/ibtissamelhani/Maska_Hunter_League.git'
             }
         }
 
