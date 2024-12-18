@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     // Wait for the Quality Gate result and fail if not passed d
-                    waitForQualityGate abortPipeline: true
+                    waitForQualityGate abortPipeline: true, sonarQubeServerUrl: 'http://sonarqube:9000'
                 }
             }
         }
