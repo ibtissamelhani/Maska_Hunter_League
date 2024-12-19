@@ -22,6 +22,22 @@ pipeline {
             }
         }
 
+        stage('Unit Tests') {
+                    steps {
+                        sh 'mvn test --batch-mode'
+                    }
+                    post {
+                        always {
+                            junit '**/target/surefire-reports/*.xml'
+                            jacoco(
+                                execPattern: '**/target/*.exec',
+                                classPattern: '**/target/classes',
+                                sourcePattern: '**/src/main/java'
+                            )
+                        }
+                    }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -56,5 +72,7 @@ pipeline {
                   }
             }
         }
+
+
     }
 }
