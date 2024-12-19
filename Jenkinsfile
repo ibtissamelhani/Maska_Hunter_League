@@ -37,7 +37,7 @@ pipeline {
                                      def qualityGate = sh(
                                          script: """
                                          curl -s -u "$SONAR_TOKEN:" \
-                                         "$SONAR_HOST_URL/api/qualitygates/project_status?projectKey=$SONAR_PROJECT_KEY" \
+                                         "$SONARQUBE_URL/api/qualitygates/project_status?projectKey=$SONAR_PROJECT_KEY" \
                                          | jq -r '.projectStatus.status'
                                          """,
                                          returnStdout: true
