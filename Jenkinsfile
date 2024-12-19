@@ -34,8 +34,10 @@ pipeline {
             steps {
                 script {
                     // Wait for the Quality Gate result and fail if not passed d
-                    waitForQualityGate abortPipeline: true, sonarQubeServerUrl: 'http://sonarqube:9000'
-                }
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline failed due to Quality Gate failure: ${qg.status}"
+                    }                }
             }
         }
     }
