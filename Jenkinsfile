@@ -5,6 +5,7 @@ pipeline {
         SONARQUBE_URL = 'http://sonarqube:9000'
         SONAR_PROJECT_KEY='Maska_Hunter_League'
         SONAR_TOKEN = credentials('sonar-token')  // Make sure to use your credential for SonarQube token
+        DOCKER_IMAGE = 'Maska_Hunter_League'
     }
 
     stages {
@@ -73,6 +74,20 @@ pipeline {
             }
         }
 
+        stage('Build Docker Image') {
+                   steps {
+                        script {
+                            docker.build("${DOCKER_IMAGE}:latest")
+                        }
+                   }
+        }
 
+        stage('Deploy') {
+                    steps {
+                        script {
+                            docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").run('-p 8081:8080')
+                        }
+                    }
+                }
     }
 }

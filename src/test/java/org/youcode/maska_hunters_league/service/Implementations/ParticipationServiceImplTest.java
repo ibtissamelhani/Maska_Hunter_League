@@ -10,7 +10,6 @@ import org.youcode.maska_hunters_league.domain.enums.Difficulty;
 import org.youcode.maska_hunters_league.domain.enums.SpeciesType;
 import org.youcode.maska_hunters_league.repository.ParticipationRepository;
 import org.youcode.maska_hunters_league.service.CompetitionService;
-import org.youcode.maska_hunters_league.service.DTOs.ParticipationResultDTO;
 import org.youcode.maska_hunters_league.service.DTOs.PodiumDTO;
 import org.youcode.maska_hunters_league.service.UserService;
 import org.youcode.maska_hunters_league.web.exception.InvalidCredentialsException;
@@ -20,7 +19,6 @@ import org.youcode.maska_hunters_league.web.exception.participation.Participatio
 import org.youcode.maska_hunters_league.web.exception.user.LicenseExpiredException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
