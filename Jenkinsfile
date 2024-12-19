@@ -14,6 +14,14 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+                sh '''
+                    mvn clean package -DskipTests --batch-mode --errors
+                '''
+            }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -34,17 +42,17 @@ pipeline {
         stage('Quality Gate') {
             steps {
                   script {
-                                     def qualityGate = sh(
-                                         script: """
-                                         curl -s -u "$SONAR_TOKEN:" \
-                                         "$SONARQUBE_URL/api/qualitygates/project_status?projectKey=$SONAR_PROJECT_KEY" \
-                                         | jq -r '.projectStatus.status'
-                                         """,
-                                         returnStdout: true
-                                     ).trim()
-                                     if (qualityGate != "OK") {
-                                         error "Quality Gate failed! Stopping the build."
-                                     }
+                          def qualityGate = sh(
+                              script: """
+                              curl -s -u "$SONAR_TOKEN:" \
+                              "$SONARQUBE_URL/api/qualitygates/project_status?projectKey=$SONAR_PROJECT_KEY" \
+                              | jq -r '.projectStatus.status'
+                              """,
+                              returnStdout: true
+                          ).trim()
+                          if (qualityGate != "OK") {
+                              error "Quality Gate failed! Stopping the build."
+                          }
                   }
             }
         }
