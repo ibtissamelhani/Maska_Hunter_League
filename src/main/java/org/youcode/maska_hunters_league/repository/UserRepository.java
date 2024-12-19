@@ -1,11 +1,9 @@
 package org.youcode.maska_hunters_league.repository;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.youcode.maska_hunters_league.domain.entities.User;
-import org.youcode.maska_hunters_league.service.DTOs.SearchUserDTO;
 
 import java.util.List;
 import java.util.Optional;
