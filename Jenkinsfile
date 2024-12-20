@@ -6,7 +6,6 @@ pipeline {
         SONAR_PROJECT_KEY='Maska_Hunter_League'
         SONAR_TOKEN = credentials('sonar-token')  // Make sure to use your credential for SonarQube token
         IMAGE_NAME = 'maska_hunters_league'
-        IMAGE_TAG = 'latest'
     }
 
     stages {
@@ -78,7 +77,7 @@ pipeline {
         stage('Build Docker Image') {
                    steps {
                         script {
-                           docker build -t ${IMAGE_NAME}:${IMAGE_TAG}
+                            sh 'docker build -t maska_hunters_league:latest .'
                             }
                    }
         }
