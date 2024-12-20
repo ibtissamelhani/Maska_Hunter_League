@@ -1,19 +1,20 @@
-# Étape 1 : Utiliser une image de base
-FROM openjdk:17-jdk-slim
+# Switch to root for installation
+USER root
 
-# Étape 2 : Installer les dépendances nécessaires
-RUN apt-get update && \
-    apt-get install -y git curl && \
-    rm -rf /var/lib/apt/lists/*
+# mvn
+RUN apt-get update && apt-get install -y \
+    maven && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Étape 3 : Copier les fichiers nécessaires
-# Copiez votre projet (ex. application Jenkins) dans le conteneur
-COPY . /usr/src/app
+# Install Docker Compose
+RUN curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose
 
-# Étape 4 : Exposer les ports nécessaires
-# Par défaut, Jenkins utilise le port 8080
-EXPOSE 8080
+# Add Jenkins user to Docker group for permissions
+RUN groupadd docker && usermod -aG docker jenkins
 
-# Étape 5 : Ajouter un point d'entrée
-# Si c'est une application Jenkins ou Java :
-CMD ["java", "-jar", "target/maska_hunters_league-0.0.1-SNAPSHOT.jar"]
+# Environment setup for Jenkins to use Docker
+ENV DOCKER_HOST=unix:///var/run/docker.sock
+
+# Switch back to Jenkins user
+USER jenkins
