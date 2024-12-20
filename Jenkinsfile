@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-            docker {
-                args '-v /var/run/docker.sock:/var/run/docker.sock'
-            }
-    }
+    agent any
 
     environment {
         SONARQUBE_URL = 'http://sonarqube:9000'
