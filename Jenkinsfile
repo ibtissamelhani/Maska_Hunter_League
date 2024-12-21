@@ -80,10 +80,8 @@ pipeline {
         stage('Build Docker Image') {
                    steps {
                         script {
-                            def version = sh(script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
-                            sh """
-                                docker build -t ${IMAGE_NAME}:latest -t ${IMAGE_NAME}:${version} .
-                            """
+                            sh 'docker build -t ${IMAGE_NAME}:latest .'
+                            sh 'docker build -t ${IMAGE_NAME}:$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) .'
                         }
                    }
         }
