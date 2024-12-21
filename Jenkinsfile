@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     try {
-                         withSonarQubeEnv('sonarQube') {
+                         withSonarQubeEnv('sonarqube') {
                              sh '''
                                  mvn clean verify sonar:sonar \
                                      -Dsonar.projectKey=$SONAR_PROJECT_KEY \
