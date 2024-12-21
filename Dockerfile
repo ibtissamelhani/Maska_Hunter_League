@@ -1,3 +1,6 @@
+# Dockerfile for Custom Jenkins
+FROM jenkins/jenkins:lts
+
 # Switch to root for installation
 USER root
 

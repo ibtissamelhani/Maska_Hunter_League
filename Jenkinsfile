@@ -17,9 +17,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh '''
-                    mvn clean package -DskipTests --batch-mode --errors
-                '''
+                 sh '''
+                    mvn clean package -DskipTests --batch-mode --errors -Dmaven.repo.local=.m2/repository
+                 '''
             }
         }
 
@@ -42,15 +42,18 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-
-                    withSonarQubeEnv('sonarQube') {
-                        sh '''
-                              mvn clean verify sonar:sonar \
-                                 -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-                                 -Dsonar.projectName="Maska_Hunter_League" \
-                                 -Dsonar.host.url=$SONARQUBE_URL \
-                                 -Dsonar.login=$SONAR_TOKEN
-                           '''
+                    try {
+                         withSonarQubeEnv('sonarQube') {
+                             sh '''
+                                 mvn clean verify sonar:sonar \
+                                     -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+                                     -Dsonar.projectName="Maska_Hunter_League" \
+                                     -Dsonar.host.url=$SONARQUBE_URL \
+                                     -Dsonar.login=$SONAR_TOKEN
+                             '''
+                         }
+                    } catch (Exception e) {
+                        error "SonarQube analysis failed: ${e.message}"
                     }
                 }
             }
@@ -77,8 +80,11 @@ pipeline {
         stage('Build Docker Image') {
                    steps {
                         script {
-                            sh 'docker build -t maska_hunters_league:latest .'
-                            }
+                            def version = sh(script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
+                            sh """
+                                docker build -t ${IMAGE_NAME}:latest -t ${IMAGE_NAME}:${version} .
+                            """
+                        }
                    }
         }
 
