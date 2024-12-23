@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  jinkis:
+    image: jenkins/jenkins:lts
+    container_name: jenkis
+    restart: unless-stopped
+    user: root
+    networks:
+      - jenkins-network
+    ports:
+      - "8082:8080"
+      - "50000:50000" # Pour la communication avec les agents Jenkins
+    volumes:
+      - C:\Users\Youcode\jinkis_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock # Partager le socket Docker de l'hôte
+
+networks:
+  jenkins-network:
+    external: true
