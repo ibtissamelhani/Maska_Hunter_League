@@ -81,11 +81,26 @@ pipeline {
                    steps {
                         script {
                             sh 'docker build -t ${IMAGE_NAME}:latest .'
-                            sh 'docker build -t ${IMAGE_NAME}:$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) .'
                         }
                    }
         }
-
+         stage('Run Docker Container') {
+                    steps {
+                        script {
+                            // Stop and remove any existing container with the same name
+                            sh '''
+                            if [ $(docker ps -aq -f name=${IMAGE_NAME}_container) ]; then
+                                docker stop ${IMAGE_NAME}_container
+                                docker rm ${IMAGE_NAME}_container
+                            fi
+                            '''
+                            // Run the container
+                            sh '''
+                            docker run -d --name ${IMAGE_NAME}_container -p 8080:8080 ${IMAGE_NAME}:latest
+                            '''
+                        }
+                    }
+         }
 
     }
 }
