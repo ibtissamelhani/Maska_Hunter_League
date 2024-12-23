@@ -4,7 +4,7 @@ pipeline {
     environment {
         SONARQUBE_URL = 'http://sonarqube:9000'
         SONAR_PROJECT_KEY='Maska_Hunter_League'
-        SONAR_TOKEN = credentials('sonar_Token')  // Make sure to use your credential for SonarQube token
+        SONAR_TOKEN = credentials('sonar_token')  // Make sure to use your credential for SonarQube token
         IMAGE_NAME = 'maska_hunters_league'
     }
 
