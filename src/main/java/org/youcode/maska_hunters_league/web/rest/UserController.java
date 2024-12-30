@@ -19,7 +19,7 @@ import org.youcode.maska_hunters_league.web.VMs.mapper.UserVMMapper;
 
 import java.util.List;
 import java.util.UUID;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/v1/users")
 @AllArgsConstructor
