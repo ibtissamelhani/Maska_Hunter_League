@@ -24,4 +24,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     List<User> searchByUsernameOrEmail(@Param("username") String username,
                               @Param("email") String email);
 
+
+
 }

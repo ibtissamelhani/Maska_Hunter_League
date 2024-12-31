@@ -1,5 +1,6 @@
 package org.youcode.maska_hunters_league.service.Implementations;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
@@ -35,10 +37,10 @@ public class UserServiceImpl implements UserService {
         if (id == null) {
             throw new InvalidCredentialsException("Invalid user id");
         }
-        userRepository.findById(id)
+        User user = userRepository.findById(id)
                 .orElseThrow(UserNotFoundException::new);
 
-        userRepository.deleteById(id);
+        userRepository.delete(user);
         return true;
     }
 

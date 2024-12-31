@@ -2,6 +2,8 @@ package org.youcode.maska_hunters_league.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@SQLDelete(sql = "UPDATE \"user\" SET deleted = true, deleted_at = NOW() WHERE id=?")
+@Where(clause = "deleted=false")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -45,6 +49,18 @@ public class User implements UserDetails {
 
     private LocalDateTime licenseExpirationDate;
 
+    @Column(name = "deleted")
+    private boolean deleted = false;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
+    @PreRemove
+    public void preRemove() {
+        this.deleted = true;
+        this.deletedAt = LocalDateTime.now();
+    }
+
     @OneToMany(mappedBy = "user")
     private List<Participation> participations;
 
@@ -65,7 +81,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return !deleted;
     }
 
     @Override

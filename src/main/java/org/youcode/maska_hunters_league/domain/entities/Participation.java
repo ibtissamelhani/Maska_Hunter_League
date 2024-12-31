@@ -18,10 +18,10 @@ public class Participation{
     @GeneratedValue(strategy =  GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Competition competition;
 
     @OneToMany(mappedBy = "participation")

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import org.youcode.maska_hunters_league.web.VMs.mapper.UpdateUserVMMapper;
 import org.youcode.maska_hunters_league.web.VMs.mapper.UserVMMapper;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -40,12 +42,16 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteMember(@PathVariable UUID id) {
+    public ResponseEntity<Map<String, String>> deleteMember(@PathVariable UUID id) {
         boolean isDeleted = userService.deleteUser(id);
         if (isDeleted) {
-            return ResponseEntity.ok("deleted successfully");
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(Map.of("message", "deleted successfully"));
         }else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("failed to delete user");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(Map.of("message", "failed to delete user"));
         }
     }
 
