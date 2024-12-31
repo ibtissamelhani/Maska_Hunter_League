@@ -55,7 +55,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<List<UserVM>> searchUsers(@RequestBody SearchUserDTO searchUserDTO) {
         List<User> result = userService.searchUsers(searchUserDTO);
         List<UserVM> userVMS = result.stream().map(userVMMapper::toUserVM).toList();
