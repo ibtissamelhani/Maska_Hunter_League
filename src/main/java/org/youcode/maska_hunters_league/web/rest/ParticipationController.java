@@ -3,9 +3,12 @@ package org.youcode.maska_hunters_league.web.rest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.youcode.maska_hunters_league.domain.entities.Participation;
+import org.youcode.maska_hunters_league.domain.entities.User;
 import org.youcode.maska_hunters_league.service.DTOs.ParticipationResultDTO;
 import org.youcode.maska_hunters_league.service.DTOs.PodiumDTO;
 import org.youcode.maska_hunters_league.service.ParticipationService;
@@ -26,8 +29,12 @@ public class ParticipationController {
     private final ParticipationMapper participationMapper;
 
     @PostMapping
-    public ResponseEntity<ParticipationVM> registerUserToCompetition(@RequestBody @Valid ParticipationRequestVM participationRequestVM){
-        Participation participation = participationService.registerUserToCompetition(participationRequestVM.getUserId(),participationRequestVM.getCompetitionId());
+    public ResponseEntity<ParticipationVM> registerUserToCompetition(
+            @RequestBody @Valid ParticipationRequestVM participationRequestVM,
+            @AuthenticationPrincipal UserDetails userDetails
+    ){
+        UUID userId = ((User) userDetails).getId();
+        Participation participation = participationService.registerUserToCompetition(userId,participationRequestVM.getCompetitionId());
         ParticipationVM participationVM = participationMapper.toParticipationVM(participation);
         return ResponseEntity.ok(participationVM);
     }

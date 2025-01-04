@@ -12,8 +12,8 @@ import java.util.UUID;
 @Builder
 public class ParticipationRequestVM {
 
-    @NotNull(message = "user id is required")
-    private UUID userId;
+//    @NotNull(message = "user id is required")
+//    private UUID userId;
 
     @NotNull(message = "competition id is required")
     private UUID competitionId;

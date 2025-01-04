@@ -45,6 +45,7 @@ public class CompetitionController {
     }
 
     @GetMapping("/open")
+    @PreAuthorize("hasAuthority('CAN_VIEW_COMPETITIONS')")
     public ResponseEntity<Page<CompetitionVM>> getOpenCompetitions(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
