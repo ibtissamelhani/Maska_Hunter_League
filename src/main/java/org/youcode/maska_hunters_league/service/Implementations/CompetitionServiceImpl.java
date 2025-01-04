@@ -128,4 +128,9 @@ public class CompetitionServiceImpl implements CompetitionService {
                     competitionRepository.save(competition);
                 });
     }
+
+    @Override
+    public Page<Competition> getOpenCompetitions(Pageable pageable) {
+        return competitionRepository.findByOpenRegistrationTrue(pageable);
+    }
 }

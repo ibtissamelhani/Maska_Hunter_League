@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,6 +44,17 @@ public class CompetitionController {
         return ResponseEntity.ok(competitionVMS);
     }
 
+    @GetMapping("/open")
+    public ResponseEntity<Page<CompetitionVM>> getOpenCompetitions(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Competition> competitions = competitionService.getOpenCompetitions(pageable);
+        List<CompetitionVM> competitionVMSList = competitions.stream().map(competitionVMMapper::toCompetitionVM).toList();
+        Page<CompetitionVM> competitionVMS = new PageImpl<>(competitionVMSList,competitions.getPageable(),competitions.getTotalElements());
+        return ResponseEntity.ok(competitionVMS);
+    }
+
     @PostMapping()
     @PreAuthorize("hasAuthority('CAN_MANAGE_COMPETITIONS')")
     public ResponseEntity<Competition> createCompetition(@Valid @RequestBody CreateCompetitionVM createCompetitionVM) {
@@ -55,6 +68,14 @@ public class CompetitionController {
     public ResponseEntity<CompetitionDTO> getCompetitionDetails(@PathVariable UUID id) {
         CompetitionDTO competitionDTO = competitionService.getCompetitionDetails(id);
         return ResponseEntity.ok(competitionDTO);
+    }
+
+    @GetMapping("/details/{id}")
+    @PreAuthorize("hasAuthority('CAN_VIEW_COMPETITIONS')")
+    public ResponseEntity<CompetitionVM> getCompetitionById(@PathVariable UUID id) {
+        Competition competition = competitionService.findById(id);
+        CompetitionVM competitionVM = competitionVMMapper.toCompetitionVM(competition);
+        return ResponseEntity.ok(competitionVM);
     }
 
     @DeleteMapping("/delete/{id}")

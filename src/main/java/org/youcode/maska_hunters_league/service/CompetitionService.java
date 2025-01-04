@@ -1,6 +1,7 @@
 package org.youcode.maska_hunters_league.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.youcode.maska_hunters_league.domain.entities.Competition;
 import org.youcode.maska_hunters_league.service.DTOs.CompetitionDTO;
 
@@ -17,4 +18,6 @@ public interface CompetitionService {
     Competition update(UUID id, Competition competition);
     CompetitionDTO getCompetitionDetails(UUID id);
     void closeRegistrationsBeforeCompetition();
+    Page<Competition> getOpenCompetitions(Pageable pageable);
+
 }
