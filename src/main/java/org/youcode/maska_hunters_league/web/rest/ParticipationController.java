@@ -10,6 +10,8 @@ import org.youcode.maska_hunters_league.service.DTOs.ParticipationResultDTO;
 import org.youcode.maska_hunters_league.service.DTOs.PodiumDTO;
 import org.youcode.maska_hunters_league.service.ParticipationService;
 import org.youcode.maska_hunters_league.web.VMs.ParticipationVMs.ParticipationRequestVM;
+import org.youcode.maska_hunters_league.web.VMs.ParticipationVMs.ParticipationVM;
+import org.youcode.maska_hunters_league.web.VMs.mapper.ParticipationMapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,11 +23,13 @@ import java.util.UUID;
 public class ParticipationController {
 
     private final ParticipationService participationService;
+    private final ParticipationMapper participationMapper;
 
     @PostMapping
-    public ResponseEntity<Participation> registerUserToCompetition(@RequestBody @Valid ParticipationRequestVM participationRequestVM){
+    public ResponseEntity<ParticipationVM> registerUserToCompetition(@RequestBody @Valid ParticipationRequestVM participationRequestVM){
         Participation participation = participationService.registerUserToCompetition(participationRequestVM.getUserId(),participationRequestVM.getCompetitionId());
-        return ResponseEntity.ok(participation);
+        ParticipationVM participationVM = participationMapper.toParticipationVM(participation);
+        return ResponseEntity.ok(participationVM);
     }
 
     @GetMapping("/results")
