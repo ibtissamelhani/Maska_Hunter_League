@@ -2,6 +2,8 @@ package org.youcode.maska_hunters_league.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.youcode.maska_hunters_league.domain.enums.SpeciesType;
 
 import java.time.LocalDateTime;
@@ -14,6 +16,8 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLDelete(sql = "UPDATE competition SET deleted = true, deleted_at = NOW() WHERE id=?")
+@Where(clause = "deleted=false")
 public class Competition {
     @Id
     @GeneratedValue
@@ -36,5 +40,11 @@ public class Competition {
 
     @OneToMany(mappedBy = "competition")
     private List<Participation> participations;
+
+    @Column(name = "deleted")
+    private boolean deleted = false;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 
 }
