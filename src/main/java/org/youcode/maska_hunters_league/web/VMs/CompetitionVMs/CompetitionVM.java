@@ -30,4 +30,6 @@ public class CompetitionVM {
     private Integer maxParticipants;
 
     private Boolean openRegistration;
+
+    private int numberOfParticipants;
 }

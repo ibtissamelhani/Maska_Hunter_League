@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ import org.youcode.maska_hunters_league.web.VMs.mapper.CreateCompetitionVMMapper
 import org.youcode.maska_hunters_league.web.VMs.mapper.UpdateCompetitionVMMapper;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -81,12 +83,16 @@ public class CompetitionController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('CAN_MANAGE_COMPETITIONS')")
-    public ResponseEntity<String> deleteCompetition(@PathVariable UUID id){
+    public ResponseEntity<Map<String,String>> deleteCompetition(@PathVariable UUID id){
         boolean isDeleted = competitionService.delete(id);
-        if (isDeleted){
-            return ResponseEntity.ok("deleted successfully");
+        if (isDeleted) {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(Map.of("message", "deleted successfully"));
         }else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("failed to delete competition");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(Map.of("message", "failed to delete Competition"));
         }
     }
 
