@@ -12,6 +12,8 @@ import org.youcode.maska_hunters_league.service.SpeciesService;
 import org.youcode.maska_hunters_league.web.VMs.SpeciesVMs.SpeciesVM;
 import org.youcode.maska_hunters_league.web.VMs.mapper.SpeciesVMMapper;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -38,9 +40,11 @@ public class SpeciesController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public  ResponseEntity<String> delete(@PathVariable UUID id){
+    public ResponseEntity<Map<String, String>> delete(@PathVariable UUID id) {
         speciesService.delete(id);
-        return ResponseEntity.ok("species is deleted successfully");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "species is deleted successfully");
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
@@ -50,5 +54,11 @@ public class SpeciesController {
 
         Species updatedSpecies = speciesService.updateSpecies(id, speciesUpdates);
         return ResponseEntity.ok(updatedSpecies);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Species> getSpeciesById(@PathVariable UUID id) {
+        Species species = speciesService.findById(id);
+        return ResponseEntity.ok(species);
     }
 }
