@@ -1,6 +1,8 @@
 package org.youcode.maska_hunters_league.service.Implementations;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.youcode.maska_hunters_league.domain.entities.*;
 import org.youcode.maska_hunters_league.domain.enums.Difficulty;
@@ -116,5 +118,13 @@ public class ParticipationServiceImpl implements ParticipationService {
         }
         competitionService.findById(competitionId);
         return participationRepository.findTopThreeByCompetition(competitionId);
+    }
+
+    @Override
+    public Page<Participation> getPaginatedParticipationsByCompetition(UUID competitionId, Pageable pageable) {
+        if (competitionId == null) {
+            throw new InvalidCredentialsException("Competition ID cannot be null");
+        }
+        return participationRepository.findByCompetitionId(competitionId, pageable);
     }
 }
