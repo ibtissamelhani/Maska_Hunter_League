@@ -42,7 +42,7 @@ public class SecurityConfiguration {
                             authorizeHttpRequest.requestMatchers(POST,participationLink).hasAuthority(CAN_PARTICIPATE.name());
                             authorizeHttpRequest.requestMatchers(GET,participationLink).hasAuthority(CAN_VIEW_RANKINGS.name());
                             authorizeHttpRequest.requestMatchers(GET,participationLink).hasAuthority(CAN_VIEW_RANKINGS.name());
-                            authorizeHttpRequest.requestMatchers("/api/v1/users/**").hasRole(ADMIN.name());
+                            authorizeHttpRequest.requestMatchers("/api/v1/users/**").hasAnyRole(ADMIN.name(), MEMBER.name());
                             authorizeHttpRequest.anyRequest().authenticated();
                         }
                 ).sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

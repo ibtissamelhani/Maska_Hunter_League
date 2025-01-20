@@ -14,6 +14,8 @@ import org.youcode.maska_hunters_league.web.VMs.AuthVMs.AuthenticationRequest;
 import org.youcode.maska_hunters_league.web.VMs.AuthVMs.AuthenticationResponse;
 import org.youcode.maska_hunters_league.web.VMs.AuthVMs.RegisterRequest;
 
+import java.time.LocalDateTime;
+
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +37,7 @@ public class AuthenticationService implements AuthService {
                 .cin(request.getCin())
                 .nationality(request.getNationality())
                 .role(Role.valueOf(request.getRole()))
+                .joinDate(LocalDateTime.now())
                 .build();
 
         appUserRepository.save(user);

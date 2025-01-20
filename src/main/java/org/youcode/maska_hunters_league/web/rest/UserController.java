@@ -68,4 +68,12 @@ public class UserController {
         UserVM userVM = userVMMapper.toUserVM(updatedUser);
         return ResponseEntity.ok(userVM);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserVM> getUserById(@PathVariable UUID id) {
+        User user = userService.findById(id);
+        UserVM userVM = userVMMapper.toUserVM(user);
+        return ResponseEntity.ok(userVM);
+    }
 }
+
